@@ -1,2 +1,2 @@
 # gin-mvc
-gin mvc frame
+Gin mvc Framework
