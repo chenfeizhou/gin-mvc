@@ -1,29 +1,36 @@
 package main
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+	"github.com/gin-mvc/app/controller"
 	"github.com/gin-mvc/app/model"
+	"github.com/gin-mvc/helpers"
 )
 
 func main() {
 
 	// 加载配置
+	helpers.InitConfig()
 
 	// 初始化数据库
 	model.Connect()
 
-	// 加载路由
-
 	// 运行
-	r := gin.Default()
+	app := gin.Default()
 
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "Gin mvc Framework",
-		})
-	})
+	// 设置html目录
+	app.LoadHTMLGlob("./view/*")
 
-	r.Run()
+	// 静态资源映射
+	app.Static("/storage", "./storage")
+
+	// 注册路由
+	RegisterRouter(app)
+
+	app.Run()
+}
+
+// 路由注册
+func RegisterRouter(router *gin.Engine) {
+	new(controller.IndexController).Router(router)
 }
