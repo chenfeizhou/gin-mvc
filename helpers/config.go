@@ -1,51 +1,44 @@
 package helpers
 
 import (
-	"bufio"
-	"encoding/json"
-	"os"
+	"gopkg.in/ini.v1"
 )
 
 type Application struct {
-	AppName  string `json:"app_name"`
-	AppMode  string `json:"app_mode"`
-	HttpHost string `json:"http_host"`
-	HttpPort string `json:"http_port"`
+	AppName  string
+	AppMode  string
+	HttpHost string
+	HttpPort string
 }
 
 type Database struct {
-	Connection string `json:"db_connection"`
-	Host       string `json:"db_host"`
-	Port       string `json:"db_port"`
-	Database   string `json:"db_database"`
-	Username   string `json:"db_username"`
-	Password   string `json:"db_password"`
+	DbConnection string
+	DbHost       string
+	DbPort       string
+	DbDatabase   string
+	DbUsername   string
+	DbPassword   string
 }
 
 type Config struct {
-	Application
-	Database
+	Application Application
+	Database    Database
 }
 
-const ConfigPath = "./config/app.ini"
+const IniPath = "./config/app.ini"
 
-var cfg *Config = nil
+func (config *Config) InitConfig() *Config {
 
-func LoadConfig() (*Config, error) {
+	cfg, err := ini.Load(IniPath)
+	HandlerErr(err)
 
-	file, err := os.Open(ConfigPath)
+	cfg.NameMapper = ini.TitleUnderscore
 
-	handlerErr(err)
+	err = cfg.Section("application").MapTo(&config.Application)
+	HandlerErr(err)
 
-	defer file.Close()
+	err = cfg.Section("database").MapTo(&config.Database)
+	HandlerErr(err)
 
-	reader := bufio.NewReader(file)
-
-	decoder := json.NewDecoder(reader)
-
-	if err = decoder.Decode(&cfg); err != nil {
-		return nil, err
-	}
-
-	return cfg, nil
+	return config
 }

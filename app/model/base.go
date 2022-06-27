@@ -1,6 +1,9 @@
 package model
 
 import (
+	"strings"
+
+	"github.com/gin-mvc/helpers"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -14,9 +17,9 @@ var db *gorm.DB
 /**
 建立Mysql连接器
 */
-func Connect() *gorm.DB {
+func InitDb(cfg *helpers.Config) *gorm.DB {
 
-	dsn := "root:123456@tcp(127.0.0.1:3306)/gin_cms?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := strings.Join([]string{cfg.Database.DbUsername, ":", cfg.Database.DbPassword, "@tcp(", cfg.Database.DbHost, ":", cfg.Database.DbPort, ")/", cfg.Database.DbDatabase, "?charset=utf8&parseTime=true"}, "")
 
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 

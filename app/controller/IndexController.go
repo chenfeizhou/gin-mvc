@@ -1,6 +1,10 @@
 package controller
 
-import "github.com/gin-gonic/gin"
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
 
 type IndexController struct {
 }
@@ -10,5 +14,7 @@ func (index *IndexController) Router(r *gin.Engine) {
 }
 
 func (index *IndexController) Index(c *gin.Context) {
-
+	c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "hello",
+	})
 }
