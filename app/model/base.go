@@ -12,12 +12,14 @@ type baseModel struct {
 	gorm.Model
 }
 
-var db *gorm.DB
+var db = InitDb()
 
 /**
 建立Mysql连接器
 */
-func InitDb(cfg *helpers.Config) *gorm.DB {
+func InitDb() *gorm.DB {
+
+	cfg := helpers.LoadIni()
 
 	dsn := strings.Join([]string{cfg.Database.DbUsername, ":", cfg.Database.DbPassword, "@tcp(", cfg.Database.DbHost, ":", cfg.Database.DbPort, ")/", cfg.Database.DbDatabase, "?charset=utf8&parseTime=true"}, "")
 

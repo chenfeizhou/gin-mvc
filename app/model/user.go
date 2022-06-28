@@ -6,7 +6,11 @@ type User struct {
 	Password string `gorm:"type:varchar(500);not null " json:"password"`
 }
 
-func GetUsers(username string, pageSize int, pageNum int) ([]User, int64) {
+func (table *User) TableName() string {
+	return "users"
+}
+
+func GetUsers(username string, pageNum int, pageSize int) ([]User, int64) {
 
 	var users []User
 	var total int64

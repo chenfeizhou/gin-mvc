@@ -1,8 +1,6 @@
 package helpers
 
-import (
-	"gopkg.in/ini.v1"
-)
+const IniPath = "./config/app.ini"
 
 type Application struct {
 	AppName  string
@@ -23,22 +21,4 @@ type Database struct {
 type Config struct {
 	Application Application
 	Database    Database
-}
-
-const IniPath = "./config/app.ini"
-
-func (config *Config) InitConfig() *Config {
-
-	cfg, err := ini.Load(IniPath)
-	HandlerErr(err)
-
-	cfg.NameMapper = ini.TitleUnderscore
-
-	err = cfg.Section("application").MapTo(&config.Application)
-	HandlerErr(err)
-
-	err = cfg.Section("database").MapTo(&config.Database)
-	HandlerErr(err)
-
-	return config
 }

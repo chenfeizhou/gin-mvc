@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/gin-mvc/app/model"
 	"github.com/gin-mvc/helpers"
 	"github.com/gin-mvc/routes"
 )
@@ -9,10 +8,7 @@ import (
 func main() {
 
 	// 加载配置
-	cfg := new(helpers.Config).InitConfig()
-
-	// 初始化数据库
-	model.InitDb(cfg)
+	cfg := helpers.LoadIni()
 
 	// 初始化路由
 	engine := routes.InitRouter()
