@@ -1,10 +1,15 @@
 package helpers
 
 import (
+	"crypto/tls"
+	"fmt"
+	"log"
+	"strconv"
 	"strings"
 
 	"github.com/gin-mvc/app/model"
 	"github.com/go-redis/redis"
+	"gopkg.in/gomail.v2"
 	"gopkg.in/ini.v1"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -70,4 +75,30 @@ func LoadCache(cfg Config) {
 	HandlerErr(err)
 
 	RedisClient = client
+}
+
+// 加载smtp邮件服务
+func SendEmail(cfg Config) {
+
+	message := gomail.NewMessage()
+	message.SetHeader("From", cfg.Mail.MailFromAddress)
+	message.SetHeader("To", cfg.Mail.MailFromAddress)
+	message.SetHeader("Subject", "test")
+	message.SetBody("text/html", "deal hello")
+
+	mailPort, _ := strconv.Atoi(cfg.Mail.MailPort)
+
+	dialer := gomail.NewDialer(cfg.Mail.MailHost, mailPort, cfg.Mail.MailUsername, cfg.Mail.MailPassword)
+
+	dialer.TLSConfig = &tls.Config{InsecureSkipVerify: true}
+
+	err := dialer.DialAndSend(message)
+
+	if err != nil {
+
+		log.Println(err)
+		return
+	}
+
+	fmt.Println("success")
 }

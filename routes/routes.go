@@ -27,4 +27,5 @@ func InitRouter() *gin.Engine {
 // 路由注册
 func RegisterRouter(router *gin.Engine) {
 	new(controller.IndexController).Router(router)
+	new(controller.UserController).Router(router)
 }

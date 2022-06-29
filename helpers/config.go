@@ -24,8 +24,20 @@ type Redis struct {
 	RedisPort     string
 }
 
+type Mail struct {
+	MailDriver      string
+	MailHost        string
+	MailPort        string
+	MailUsername    string
+	MailPassword    string
+	MailEncryption  string
+	MailFromAddress string
+	MailFromName    string
+}
+
 type Config struct {
 	Application Application
 	Database    Database
 	Redis       Redis
+	Mail        Mail
 }

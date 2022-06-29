@@ -13,9 +13,6 @@ func main() {
 	// 数据库
 	helpers.LoadDB(cfg)
 
-	// 缓存加载
-	helpers.LoadCache(cfg)
-
 	// 初始化路由
 	engine := routes.InitRouter()
 

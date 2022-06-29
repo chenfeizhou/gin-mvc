@@ -2,8 +2,15 @@ package model
 
 type User struct {
 	baseModel
-	Username string `gorm:"type:varchar(20);not null " json:"username"`
+	Username string `gorm:"type:varchar(20);not null " json:"username" `
 	Password string `gorm:"type:varchar(500);not null " json:"password"`
+}
+
+//创建用户的请求
+
+type CreateUserRequest struct {
+	Username string `form:"username" json:"username" binding:"required,min=2,max=100"`
+	Password string `form:"password" json:"password" binding:"required,max=1000"`
 }
 
 func (table *User) TableName() string {
@@ -31,4 +38,16 @@ func GetUsers(username string, pageNum int, pageSize int) ([]User, int64) {
 	DB.Model(&users).Count(&total)
 
 	return users, total
+}
+
+func GetUserDetail(id int) User {
+
+	var user User
+	DB.First(&user, "id = ?", id)
+	return user
+}
+
+func CreateUser(creatUserRequest CreateUserRequest) User {
+	user := DB.Create(&creatUserRequest)
+	return user
 }
