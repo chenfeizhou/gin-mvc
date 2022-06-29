@@ -1,5 +1,7 @@
 package model
 
+import "strconv"
+
 type User struct {
 	baseModel
 	Username string `gorm:"type:varchar(20);not null " json:"username" `
@@ -9,6 +11,7 @@ type User struct {
 //创建用户的请求
 
 type CreateUserRequest struct {
+	ID       string `form:"id" json:"id"`
 	Username string `form:"username" json:"username" binding:"required,min=2,max=100"`
 	Password string `form:"password" json:"password" binding:"required,max=1000"`
 }
@@ -48,6 +51,14 @@ func GetUserDetail(id int) User {
 }
 
 func CreateUser(creatUserRequest CreateUserRequest) User {
-	user := DB.Create(&creatUserRequest)
+
+	DB.Create(&creatUserRequest)
+
+	var user User
+
+	id, _ := strconv.Atoi(creatUserRequest.ID)
+
+	user = GetUserDetail(id)
+
 	return user
 }
