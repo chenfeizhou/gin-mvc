@@ -3,6 +3,7 @@ package routes
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-mvc/app/controller"
+	"github.com/gin-mvc/middleware"
 )
 
 func InitRouter() *gin.Engine {
@@ -14,6 +15,8 @@ func InitRouter() *gin.Engine {
 
 	// 静态资源映射
 	router.Static("/storage", "./storage")
+
+	router.Use(middleware.Cors())
 
 	// 注册路由
 	RegisterRouter(router)

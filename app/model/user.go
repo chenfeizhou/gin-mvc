@@ -16,20 +16,19 @@ func GetUsers(username string, pageNum int, pageSize int) ([]User, int64) {
 	var total int64
 
 	if username != "" {
-
-		db.Select("id,username,created_at").Where(
+		DB.Select("id,username,created_at").Where(
 			"username like ?", username+"%",
 		).Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&users)
 
-		db.Model(&users).Where(
+		DB.Model(&users).Where(
 			"username Like ?", username+"%",
 		).Count(&total)
 
 		return users, total
 	}
 
-	db.Select("id,username,created_at").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&users)
-	db.Model(&users).Count(&total)
+	DB.Select("id,username,created_at").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&users)
+	DB.Model(&users).Count(&total)
 
 	return users, total
 }

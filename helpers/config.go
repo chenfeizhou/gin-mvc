@@ -18,7 +18,14 @@ type Database struct {
 	DbPassword   string
 }
 
+type Redis struct {
+	RedisHost     string
+	RedisPassword string
+	RedisPort     string
+}
+
 type Config struct {
 	Application Application
 	Database    Database
+	Redis       Redis
 }
