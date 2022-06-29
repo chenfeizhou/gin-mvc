@@ -4,7 +4,8 @@
 3. 该框架本着总体追求代码简洁，无冗余，上手迅速设计思想
 
 ### 用到的Go技术栈
-- gorm 组件
+- gorm (https://gorm.io/zh_CN/)
+- go-ini (https://ini.unknwon.io/)
 
 
 持续开发中...
