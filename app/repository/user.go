@@ -31,6 +31,5 @@ func (userRepository *UserRepository) CreateUser(createUserRequest model.CreateU
 }
 
 func (userRepository *UserRepository) DeleteUser(id int) {
-
 	model.DB.Delete(&model.User{}, id)
 }

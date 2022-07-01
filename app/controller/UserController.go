@@ -1,12 +1,12 @@
 package controller
 
 import (
-	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-mvc/app/model"
 	"github.com/gin-mvc/app/repository"
+	"github.com/gin-mvc/helpers"
 )
 
 type UserController struct {
@@ -30,13 +30,7 @@ func (userController *UserController) Index(c *gin.Context) {
 
 	data, total = new(repository.UserRepository).GetUsers(username, pageNum, pageSize)
 
-	c.JSON(http.StatusOK, gin.H{
-		"code": 200,
-		"data": map[string]interface{}{
-			"list":  data,
-			"count": total,
-		},
-	})
+	helpers.Success(c, gin.H{"list": data, "count": total}, "success")
 }
 
 func (userController *UserController) Show(c *gin.Context) {
@@ -55,10 +49,8 @@ func (userController *UserController) Show(c *gin.Context) {
 
 	user := new(repository.UserRepository).GetUserDetail(userId)
 
-	c.JSON(http.StatusOK, gin.H{
-		"code": 200,
-		"data": user,
-	})
+	helpers.Success(c, gin.H{"data": user}, "success")
+
 }
 
 func (userController *UserController) Create(c *gin.Context) {
@@ -71,10 +63,7 @@ func (userController *UserController) Create(c *gin.Context) {
 
 	user := new(repository.UserRepository).CreateUser(creatUserRequest)
 
-	c.JSON(http.StatusOK, gin.H{
-		"code": 200,
-		"data": user,
-	})
+	helpers.Success(c, gin.H{"data": user}, "success")
 }
 
 func (userController *UserController) Destory(c *gin.Context) {
@@ -93,8 +82,5 @@ func (userController *UserController) Destory(c *gin.Context) {
 
 	new(repository.UserRepository).DeleteUser(userId)
 
-	c.JSON(http.StatusOK, gin.H{
-		"code": 200,
-		"data": nil,
-	})
+	helpers.Success(c, gin.H{"data": nil}, "success")
 }

@@ -1,7 +1,9 @@
 package helpers
 
 import (
+	"crypto/md5"
 	"crypto/tls"
+	"encoding/hex"
 	"fmt"
 	"log"
 	"strconv"
@@ -101,4 +103,10 @@ func SendEmail(cfg Config) {
 	}
 
 	fmt.Println("success")
+}
+
+func Md5(str string) string {
+	h := md5.New()
+	h.Write([]byte(str))
+	return hex.EncodeToString(h.Sum(nil))
 }

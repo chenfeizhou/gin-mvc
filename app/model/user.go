@@ -60,3 +60,17 @@ func CreateUser(creatUserRequest CreateUserRequest) User {
 	user = GetUserDetail(id)
 	return user
 }
+
+// 用户是否存在
+func (*User) IsUserExist(username string) bool {
+
+	var user User
+
+	DB.Where("username = ?", username).First(&user)
+
+	if user.ID != 0 {
+		return true
+	}
+
+	return false
+}

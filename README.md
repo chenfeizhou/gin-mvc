@@ -4,8 +4,21 @@
 3. 该框架本着总体追求代码简洁，无冗余，上手迅速设计思想
 
 ### 用到的Go技术栈
-- gorm (https://gorm.io/zh_CN/)
-- go-ini (https://ini.unknwon.io/)
+- gorm(https://gorm.io/zh_CN/)
+- go-ini(https://ini.unknwon.io/)
+- jwt-go(https://github.com/dgrijalva/jwt-go)
+
+
+### 开发日志
+**2022.07** 
+- 新增jwt-go中间件
+- 统一封装相应请求
+- 新增Auth权限控制器
+- 代码优化处理
+
+**2022.06**
+- 搭建项目框架
+- 初始化项目结构
 
 
 持续开发中...
