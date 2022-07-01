@@ -3,20 +3,19 @@ package model
 import "strconv"
 
 type User struct {
-	baseModel
+	BaseModel
 	Username string `gorm:"type:varchar(20);not null " json:"username" `
 	Password string `gorm:"type:varchar(500);not null " json:"password"`
 }
 
 //创建用户的请求
-
 type CreateUserRequest struct {
 	ID       string `form:"id" json:"id"`
 	Username string `form:"username" json:"username" binding:"required,min=2,max=100"`
 	Password string `form:"password" json:"password" binding:"required,max=1000"`
 }
 
-func (table *User) TableName() string {
+func (*User) TableName() string {
 	return "users"
 }
 
@@ -59,6 +58,5 @@ func CreateUser(creatUserRequest CreateUserRequest) User {
 	id, _ := strconv.Atoi(creatUserRequest.ID)
 
 	user = GetUserDetail(id)
-
 	return user
 }

@@ -28,4 +28,5 @@ func InitRouter() *gin.Engine {
 func RegisterRouter(router *gin.Engine) {
 	new(controller.IndexController).Router(router)
 	new(controller.UserController).Router(router)
+	new(controller.ArticleController).Router(router)
 }

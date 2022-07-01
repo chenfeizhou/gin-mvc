@@ -23,15 +23,14 @@ func (userRepository *UserRepository) GetUsers(username string, pageNum string, 
 }
 
 func (userRepository *UserRepository) GetUserDetail(id int) model.User {
-
-	user := model.GetUserDetail(id)
-
-	return user
+	return model.GetUserDetail(id)
 }
 
 func (userRepository *UserRepository) CreateUser(createUserRequest model.CreateUserRequest) model.User {
+	return model.CreateUser(createUserRequest)
+}
 
-	user := model.CreateUser(createUserRequest)
+func (userRepository *UserRepository) DeleteUser(id int) {
 
-	return user
+	model.DB.Delete(&model.User{}, id)
 }

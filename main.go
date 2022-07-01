@@ -17,4 +17,5 @@ func main() {
 	engine := routes.InitRouter()
 
 	engine.Run(":" + cfg.Application.HttpPort)
+
 }

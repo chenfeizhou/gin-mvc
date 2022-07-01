@@ -79,4 +79,22 @@ func (userController *UserController) Create(c *gin.Context) {
 
 func (userController *UserController) Destory(c *gin.Context) {
 
+	type UserRequest struct {
+		ID string `uri:"id"`
+	}
+
+	var request UserRequest
+
+	if err := c.ShouldBindUri(&request); err != nil {
+		return
+	}
+
+	userId, _ := strconv.Atoi(request.ID)
+
+	new(repository.UserRepository).DeleteUser(userId)
+
+	c.JSON(http.StatusOK, gin.H{
+		"code": 200,
+		"data": nil,
+	})
 }
