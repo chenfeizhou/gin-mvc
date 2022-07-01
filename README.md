@@ -4,9 +4,10 @@
 3. 该框架本着总体追求代码简洁，无冗余，上手迅速设计思想
 
 ### 用到的Go技术栈
-- gorm(https://gorm.io/zh_CN/)
-- go-ini(https://ini.unknwon.io/)
-- jwt-go(https://github.com/dgrijalva/jwt-go)
+- [gin](https://gin-gonic.com/zh-cn/docs/)
+- [gorm](https://gorm.io/zh_CN/)
+- [go-ini](https://ini.unknwon.io/)
+- [jwt-go](https://github.com/dgrijalva/jwt-go)
 
 
 ### 开发日志
