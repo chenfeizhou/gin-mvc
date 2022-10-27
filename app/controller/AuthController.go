@@ -1,8 +1,6 @@
 package controller
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
 	"github.com/gin-mvc/app/model"
 	"github.com/gin-mvc/helpers"
@@ -52,7 +50,7 @@ func (auth *AuthController) Login(c *gin.Context) {
 	model.DB.Where(&model.User{Username: requestUser.Username, Password: passwd}).First(&user)
 
 	if user.ID == 0 {
-		helpers.Response(c, http.StatusUnprocessableEntity, 400, nil, "登录失败，用户名不存在")
+		helpers.Fail(c, "登录失败，用户名不存在", nil)
 	}
 
 	// 发放token
